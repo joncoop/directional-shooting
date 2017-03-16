@@ -45,7 +45,7 @@ class Bullet:
 
     def draw(self, surface):
         loc = round(self.x), round(self.y)
-        pygame.draw.circle(surface, RED, loc, 10)
+        pygame.draw.circle(surface, RED, loc, 5)
 
 
 # Game objects
