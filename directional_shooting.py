@@ -6,9 +6,9 @@ import math
 pygame.init()
 
 # Window
-SIZE = (800, 600)
 TITLE = "Pew! Pew! Pew!"
-window = pygame.display.set_mode(SIZE)
+WIDTH, HEIGHT = 800, 600
+window = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption(TITLE)
 
 # Timer
@@ -62,6 +62,10 @@ def get_velocity_vector(x1, y1, x2, y2, speed):
     
     a = x2 - x1
     b = y2 - y1
+
+    if a == 0 and b == 0:
+        return 0, 0
+    
     c = math.sqrt(a**2 + b**2)
 
     vx = speed * a / c
@@ -82,9 +86,12 @@ while not done:
             x2, y2 = pygame.mouse.get_pos()
             
             vx, vy = get_velocity_vector(x1, y1, x2, y2, speed)
-            
-            b = Bullet(x1, y1, vx, vy)
-            bullets.append(b)
+
+            if vx != 0 or vy != 0:
+                b = Bullet(x1, y1, vx, vy)
+                bullets.append(b)
+            else:
+                print("You clicked the exact middle. No shot fired.")
 
     # Game logic
     to_remove = []
@@ -92,7 +99,7 @@ while not done:
     for b in bullets:
         b.update()
 
-        if b.x < 0 or b.x > 800 or b.y < 0 or b.y > 600:
+        if b.x < 0 or b.x > WIDTH or b.y < 0 or b.y > HEIGHT:
             to_remove.append(b)
 
     for b in to_remove:
@@ -106,7 +113,7 @@ while not done:
     for b in bullets:
         b.draw(window)
         
-    # Update screen (Actually draw the picture in the window.)
+    # Update screen
     pygame.display.flip()
 
 
