@@ -47,7 +47,6 @@ class Bullet:
         loc = round(self.x), round(self.y)
         pygame.draw.circle(surface, RED, loc, 5)
 
-
 # Game objects
 gun =  Gun(400, 300)
 bullets = []
@@ -81,7 +80,7 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-        elif event.type == pygame.MOUSEBUTTONUP:
+        elif event.type == pygame.MOUSEBUTTONDOWN:
             x1, y1 = gun.x, gun.y
             x2, y2 = pygame.mouse.get_pos()
             
@@ -115,7 +114,6 @@ while not done:
         
     # Update screen
     pygame.display.flip()
-
 
     # Limit refresh rate of game loop 
     clock.tick(refresh_rate)
